@@ -1,1 +1,6 @@
 node_modules
+
+# Prettier and ESLint
+eslint.config.mjs
+.prettierrc
+.prettierignore
