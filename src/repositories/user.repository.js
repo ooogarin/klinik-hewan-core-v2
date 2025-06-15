@@ -1,6 +1,10 @@
 import { v7 as uuidv7 } from 'uuid';
 import { users } from '../data/dummy.js';
 
+const findAll = async () => {
+    return users;
+};
+
 const findByID = async (id) => {
     return users.find((user) => user.id === id) ?? null;
 };
@@ -31,7 +35,6 @@ const update = async (id, updateData) => {
 };
 
 const remove = async (id) => {
-    const initialLength = users.length;
     const filtered = users.filter((user) => user.id !== id);
     if (filtered.length < users.length) {
         users.length = 0;
@@ -41,16 +44,12 @@ const remove = async (id) => {
     return false;
 };
 
-const findAll = async (limit = 10, offset = 0) => {
-    return users.slice(offset, offset + limit);
-};
-
 export default {
+    findAll,
     findByID,
     findByEmail,
     findByUsername,
     create,
     update,
     remove,
-    findAll,
 };

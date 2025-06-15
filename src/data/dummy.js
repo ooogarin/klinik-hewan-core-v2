@@ -3,36 +3,36 @@ import { v7 as uuidv7 } from 'uuid';
 // Data dummy untuk User
 let users = [
     {
-        id: uuidv7(),
+        id: '0197714c-4190-75de-aec9-72f8cb6d5fda',
         username: 'adminuser',
         email: 'admin@klinik.com',
         password: '$2a$10$f3WnJ9qN.A9K/f/R4p8.9.P8.z8.J8.z8.J8.z8.J8.J8.J8', // 'password123' hashed
         role: 'admin',
-        createdAt: new Date(),
+        createdAt: '2025-06-15T01:55:12.400Z',
     },
     {
-        id: uuidv7(),
+        id: '0197714c-4190-75de-aec9-763d3441ada5',
         username: 'vetdokter',
         email: 'vet@klinik.com',
         password: '$2a$10$f3WnJ9qN.A9K/f/R4p8.9.P8.z8.J8.z8.J8.z8.J8.J8.J8', // 'password123' hashed
         role: 'vet',
-        createdAt: new Date(),
+        createdAt: '2025-06-15T01:55:12.400Z',
     },
     {
-        id: uuidv7(),
+        id: '0197714c-4190-75de-aec9-7a82f5a42df3',
         username: 'resepsionis',
         email: 'resepsionis@klinik.com',
         password: '$2a$10$f3WnJ9qN.A9K/f/R4p8.9.P8.z8.J8.z8.J8.z8.J8.J8.J8', // 'password123' hashed
         role: 'receptionist',
-        createdAt: new Date(),
+        createdAt: '2025-06-15T01:55:12.400Z',
     },
     {
-        id: uuidv7(),
+        id: '0197714c-4190-75de-aec9-7dfbea9872f9',
         username: 'ownerpetra',
         email: 'owner@klinik.com',
         password: '$2a$10$f3WnJ9qN.A9K/f/R4p8.9.P8.z8.J8.z8.J8.z8.J8.J8.J8', // 'password123' hashed
         role: 'user',
-        createdAt: new Date(),
+        createdAt: '2025-06-15T01:55:12.400Z',
     },
 ];
 

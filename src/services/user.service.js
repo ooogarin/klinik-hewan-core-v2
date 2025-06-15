@@ -1,6 +1,16 @@
 import bcrypt from 'bcryptjs';
 import userRepository from '../repositories/user.repository.js';
 
+const getAllUsers = async (limit, offset) => {
+    const users = await userRepository.findAll();
+
+    // Hapus password dari setiap objek user sebelum mengembalikan
+    return users.map((user) => {
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
+    });
+};
+
 const getUserByID = async (id) => {
     const user = await userRepository.findByID(id);
     if (!user) {
@@ -10,6 +20,12 @@ const getUserByID = async (id) => {
     // Mengembalikan objek pengguna tanpa properti password untuk keamanan
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
+};
+
+const createUser = async (userData) => {
+    // Simpan user baru ke "database" (dummy)
+    const newUser = await userRepository.create(userData);
+    return newUser;
 };
 
 const updateUser = async (id, updateData) => {
@@ -29,7 +45,7 @@ const updateUser = async (id, updateData) => {
 };
 
 const deleteUser = async (id) => {
-    const deleted = await userRepository.delete(id);
+    const deleted = await userRepository.remove(id);
     if (!deleted) {
         throw new Error('User not found');
     }
@@ -37,19 +53,10 @@ const deleteUser = async (id) => {
     return { message: 'User deleted successfully' };
 };
 
-const getAllUsers = async (limit, offset) => {
-    const users = await userRepository.findAll(limit, offset);
-
-    // Hapus password dari setiap objek user sebelum mengembalikan
-    return users.map((user) => {
-        const { password, ...userWithoutPassword } = user;
-        return userWithoutPassword;
-    });
-};
-
 export default {
+    getAllUsers,
     getUserByID,
+    createUser,
     updateUser,
     deleteUser,
-    getAllUsers,
 };
