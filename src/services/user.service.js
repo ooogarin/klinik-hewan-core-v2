@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
+import { ErrorNotFound } from '../../exceptions/index.js';
 import userRepository from '../repositories/user.repository.js';
 
-const getAllUsers = async (limit, offset) => {
+const getAllUsers = async () => {
     const users = await userRepository.findAll();
 
     // Hapus password dari setiap objek user sebelum mengembalikan
@@ -14,7 +15,7 @@ const getAllUsers = async (limit, offset) => {
 const getUserByID = async (id) => {
     const user = await userRepository.findByID(id);
     if (!user) {
-        throw new Error('User not found');
+        throw new ErrorNotFound('Data not found!');
     }
 
     // Mengembalikan objek pengguna tanpa properti password untuk keamanan
