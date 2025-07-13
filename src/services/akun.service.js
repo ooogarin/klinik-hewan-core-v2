@@ -1,4 +1,4 @@
-import { errorHandler, ErrorNotFound, CustomError } from '../../exceptions/index.js';
+import { ErrorNotFound } from '../../exceptions/index.js';
 
 import AkunRepository from '../repositories/akun.repository.js';
 import db from '../../databases/mysql.connection.js';
@@ -9,7 +9,7 @@ export default class AkunService {
         try {
             return await AkunRepository.getAll();
         } catch (error) {
-            throw new Error(`Gagal mengambil daftar akun: ${error.message}`);
+            throw error;
         }
     }
 
@@ -35,15 +35,12 @@ export default class AkunService {
             const transaction = await db.sequelize.transaction();
 
             const payload = req.body;
-            const akun = await AkunRepository.create(transaction, {
-                payload,
-                status_delete: 0,
-            });
+            const akun = await AkunRepository.create(transaction, payload);
             await transaction.commit();
             return akun;
         } catch (error) {
             if (transaction) await transaction.rollback();
-            throw new Error(`Gagal membuat akun: ${error.message}`);
+            throw error;
         }
     }
 
@@ -54,7 +51,8 @@ export default class AkunService {
 
             const idAkun = req.params.id_akun;
 
-            const akun = await AkunRepository.update(transaction, idAkun, req.body);
+            const payload = req.body;
+            const akun = await AkunRepository.update(transaction, idAkun, payload);
             if (!akun) {
                 await transaction.rollback();
                 throw new Error('Akun tidak ditemukan atau sudah dihapus');
@@ -63,7 +61,7 @@ export default class AkunService {
             return akun;
         } catch (error) {
             if (transaction) await transaction.rollback();
-            throw new Error(`Gagal memperbarui akun: ${error.message}`);
+            throw error;
         }
     }
 
@@ -74,12 +72,13 @@ export default class AkunService {
 
             const idAkun = req.params.id_akun;
 
-            const result = await AkunRepository.update(transaction, idAkun);
+            const payload = req.body;
+            const result = await AkunRepository.update(transaction, idAkun, payload);
             await transaction.commit();
             return result;
         } catch (error) {
             if (transaction) await transaction.rollback();
-            throw new Error(`Gagal menghapus akun: ${error.message}`);
+            throw error;
         }
     }
 }
