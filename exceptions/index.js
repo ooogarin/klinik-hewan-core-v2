@@ -6,10 +6,10 @@ const errorHandler = (err, req, res, next) => {
     const message = err.message || 'Internal Server Error';
 
     res.status(statusCode).json({
-        response: [],
+        response: null,
         metadata: {
             code: statusCode,
-            level: err.level,
+            status: 'FAILED',
             message,
         },
     });
